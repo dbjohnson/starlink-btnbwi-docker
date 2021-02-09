@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  php-apache:
+    build: .
+    ports:
+      - 6500:80
