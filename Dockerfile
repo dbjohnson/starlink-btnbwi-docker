@@ -11,6 +11,8 @@ RUN apt-get update -y && apt-get install -y git speedtest-cli
 WORKDIR /var/www/html
 RUN git clone https://github.com/ChuckTSI/BetterThanNothingWebInterface.git
 RUN ln -s /var/www/html/BetterThanNothingWebInterface/* /var/www/html
+# Snag favicon from Starlink
+RUN curl https://www.starlink.com/assets/favicon.ico > favicon.ico
 
 # schedule speedtest
 RUN mkdir /etc/cron.d
