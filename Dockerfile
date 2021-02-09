@@ -18,9 +18,10 @@ RUN ln -s /var/www/html/BetterThanNothingWebInterface /var/www/html/btnwi
 # Snag favicon from Starlink
 RUN curl https://www.starlink.com/assets/favicon.ico > favicon.ico
 
-
 # schedule speedtest
-RUN echo "*/15 * * * * root php /var/www/html/BetterThanNothingWebInterface/scripts/cron/php/speedtest.cron.php" > /etc/cron.d/btnwi
+RUN echo "*/15 * * * * /usr/local/bin/php /var/www/html/BetterThanNothingWebInterface/scripts/cron/php/speedtest.cron.php" >> /var/spool/cron/crontabs/root
+RUN chmod 600 /var/spool/cron/crontabs/root
+RUN chown root.crontab /var/spool/cron/crontabs/root
 
 # start apache and run update scripts
-CMD /etc/init.d/apache2 start && /var/www/html/BetterThanNothingWebInterface/scripts/binbash/starlink.history.update.sh & /var/www/html/BetterThanNothingWebInterface/scripts/binbash/starlink.update.sh
+CMD /etc/init.d/apache2 start && cron && /var/www/html/BetterThanNothingWebInterface/scripts/binbash/starlink.history.update.sh & /var/www/html/BetterThanNothingWebInterface/scripts/binbash/starlink.update.sh

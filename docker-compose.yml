@@ -4,3 +4,5 @@ services:
     build: .
     ports:
       - 6500:80
+    environment:
+      - TZ=US/Eastern
